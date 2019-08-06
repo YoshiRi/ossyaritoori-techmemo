@@ -1,4 +1,4 @@
-baseURL = "/"
+baseURL = "https://dreamy-nobel-6b383b.netlify.com"
 
 languageCode = "en-us"
 DefaultContentLanguage = "en"
