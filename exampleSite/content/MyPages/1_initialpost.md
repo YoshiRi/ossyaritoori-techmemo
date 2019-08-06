@@ -6,9 +6,10 @@ tags = ["tag1","tag2"]
 +++
 
 # Initial setup
-- Hugo theme: docdock
+- Hugo theme: docdockをClone
 - netlify :
 [下記ブログ](https://ottan.xyz/netlify-cms-hugo-markdown-blog-7017/)を元に作成。
+
 
 ## Tags
 - setup
@@ -29,3 +30,5 @@ $$
 ## 画像
 OK
 ![](https://images.unsplash.com/photo-1564612123554-78943ddb2ba3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=968&q=80)
+
+# 静的なサイト
