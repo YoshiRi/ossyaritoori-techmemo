@@ -1,0 +1,28 @@
+backend:
+  name: github
+  repo: gomagaru/blog_netlify
+  branch: master
+
+publish_mode: editorial_workflow
+
+media_folder: "static/img"
+public_folder: "img"
+
+collections:
+ - name: "post"
+   label: "Post"
+   folder: "content/post"
+   create: true
+   slug: "{{slug}}"
+   fields:
+   - {label: "Title", name: "title", widget: "string"}
+   - {label: "Description", name: "description", widget: "text", required: false}
+   - {label: "Category", name: "categories", widget: "list", required: false}
+   - {label: "Featured Image", name: "featuredImage", widget: "image", required: false}
+   - {label: "Featured Image Description", name: "featuredImageDescription", widget: "text", required: false}
+   - {label: "Publish Date", name: "date", widget: "datetime"}
+   - {label: "Drop Cap", name: "dropCap", widget: "boolean", default: true}
+   - {label: "Display In Menu", name: "displayInMenu", widget: "boolean", default: false}
+   - {label: "Display In List", name: "displayInList", widget: "boolean", default: false}
+   - {label: "Draft", name: "draft", widget: "boolean", default: false}
+   - {label: "Body", name: "body", widget: "markdown"}
