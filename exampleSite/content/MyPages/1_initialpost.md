@@ -17,7 +17,10 @@ tags = ["tag1","tag2"]
 # Test
 ## 数式
 
-Not OK?
+数式を見せるにはMathJaxを有効にする。[参考](https://maku77.github.io/hugo/settings/math-jax.html)
+
+
+`menu-footer.html`に`<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>`を追記した。
 
 $$
 T = S((1 + \frac{E}{R})^{F} - 1)
