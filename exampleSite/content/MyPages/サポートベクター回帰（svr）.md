@@ -21,6 +21,11 @@ https://datachemeng.com/supportvectorregression/
 - スラック変数：不等式制約を「等式制約＋非負制約」へと変換するための一時変数
 - カーネルトリック：後で調べる
 
+
+# カーネル法
+
+https://www.ism.ac.jp/~fukumizu/OsakaU2014/OsakaU_1intro.pdf
+
 ## カーネルトリック
 https://qiita.com/kilometer/items/66e6116cc661019ead59
 
@@ -32,3 +37,4 @@ https://qiita.com/kilometer/items/66e6116cc661019ead59
 4. f(x)が求まる。
 
 このカーネルkの決定がだるい？
+
