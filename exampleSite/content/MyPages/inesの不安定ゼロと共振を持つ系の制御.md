@@ -48,14 +48,14 @@ controller = tf([cof(3) cof(4) cof(5)],[cof(1),cof(2) 0])
 
 % real plant 
 closed_ = minreal((controller*plant_)/(1+controller*plant_))
-<<<<<<< HEAD
-step(closed_)
-```
-=======
 step(closed_)
 ```
 
 ## 議論@8/30
 - 制御は普通ノッチをかけて極ゼロ相殺した系に対してやるのが良いだろう
 - 極配置はマスラインに到達する辺りの周波数に当てるべき
->>>>>>> 05eccfec4c4c4561ee0505aa46908e522911bb78
+
+
+## 議論 with 延命
+- 重根が悪いのでは：バタワースで配置してみる。ダメ。
+- 速い極でうまくいくのはコントローラが無理やり位相を回復させて位相余裕をもたせているせいみたい。
