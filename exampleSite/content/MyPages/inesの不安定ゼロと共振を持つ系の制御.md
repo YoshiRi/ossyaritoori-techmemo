@@ -1,5 +1,5 @@
 ---
-title: INESの不安定ゼロと共振を持つ系の制御
+title: 不安定ゼロと共振を持つ系の制御
 date: 2019-08-29T15:51:13.800Z
 dropCap: true
 displayInMenu: false
@@ -50,3 +50,7 @@ controller = tf([cof(3) cof(4) cof(5)],[cof(1),cof(2) 0])
 closed_ = minreal((controller*plant_)/(1+controller*plant_))
 step(closed_)
 ```
+
+## 議論@8/30
+- 制御は普通ノッチをかけて極ゼロ相殺した系に対してやるのが良いだろう
+- 極配置はマスラインに到達する辺りの周波数に当てるべき
