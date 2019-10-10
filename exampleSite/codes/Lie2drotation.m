@@ -1,4 +1,6 @@
 
+clear 
+
 %% SO2
 theta = 0.5;
 G=[0 -1;1 0];
@@ -14,6 +16,8 @@ w=0.01*randn(2,datanum);
 
 % obserbation
 y=R*x+w
+
+%% 0. Kanata's method
 
 %% 1.Linear Estimaion
 
