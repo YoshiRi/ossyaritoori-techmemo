@@ -10,3 +10,6 @@ public/
 .sass-cache
 
 .asv
+
+*.mp4
+*.wav
