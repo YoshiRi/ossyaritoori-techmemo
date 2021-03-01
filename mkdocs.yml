@@ -41,6 +41,7 @@ plugins:
       increment_topnav: True # 章
       increment_pages: True # 節（各ページにも振る）
       strict_mode: False
+      order: 2
   - git-revision-date-localized   # 更新時を表示可能
 
 use_directory_urls: false # directly connect htmls
