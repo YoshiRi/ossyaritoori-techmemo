@@ -1,129 +1,76 @@
-# Hugo docDock Theme
+# Mkdocs Materialでドキュメントを作るテンプレート
 
-This repository contains a theme for [Hugo](https://gohugo.io/), based on 
+Mkdocsを用いてドキュメントを作成するテンプレート。
 
-* [Matcornic Learn theme](https://github.com/matcornic/hugo-theme-learn/).
-* [facette.io](https://facette.io/)'s documentation style css (Facette is a great time series data visualization software)
+## 概要
 
-Visit the [theme documentation](http://docdock.netlify.com/) to see what is going on. It is actually built with this theme.
-
-# Main features
-
-- Search
-- **Unlimited menu levels**
-- RevealJS presentation from markdown (embededed or fullscreen page)
-- Attachments files
-- List child pages
-- Include segment of content from one page in another (Excerpt)
-- Automatic next/prev buttons to navigate through menu entries
-- Mermaid diagram
-- Icons, Buttons, Alerts, Panels, Tip/Note/Info/Warning boxes
-- Image resizing, shadow...
-- Customizable look and feel
-
-
-![Overview](https://github.com/vjeantet/hugo-theme-docdock/raw/master/images/tn.png)
-
-## Installation
-
-Check that your Hugo version is minimum `0.30` with `hugo version`. We assume that all changes to Hugo content and customizations are going to be tracked by git (GitHub, Bitbucket etc.). Develop locally, build on remote system.
-
-To start real work:
-
-1. Initialize Hugo
-2. Install DocDock theme
-3. Configure DocDock and Hugo
-
-### Prepare empty Hugo site
-
-Create empty directory, which will be root of your Hugo project. Navigate there and let Hugo to create minimal required directory structure:
-```
-$ hugo new site .
-```
-AFTER that, initialize this as git directory where to track further changes
-```
-$ git init
-```
-
-Next, there are at least three ways to install DocDock (first recommended):
-
-1. **As git submodule**
-2. As git clone
-3. As direct copy (from ZIP)
-
-Navigate to your themes folder in your Hugo site and use perform one of following scenarios.
-
-### 1. Install DocDock as git submodule
-DocDock will be added like a dependency repo to original project. When using CI tools like Netlify, Jenkins etc., submodule method is required, or you will get `theme not found` issues. Same applies when building site on remote server trough SSH.
-
-If submodule is no-go, use 3rd option.
-
-On your root of Hugo execute:
+基本的なフォルダ構成は以下の通り。
 
 ```
-$ git submodule add https://github.com/vjeantet/hugo-theme-docdock.git themes/docdock
+mkdocsTest
+├── .github
+│  └── workflow
+│     └── mkdocs.yml
+│
+├── mkdocs.yml # book setting
+└── docs # Source folder
+   ├── index.md # For top page (Not neccesary)
+   └── < other .md files >
 ```
-Next initialize submodule for parent git repo:
+
+## How to Use
+
+CloneまたはForkした後に，GitHubにPushするだけでOK.
+
+[Getting Started](https://squidfunk.github.io/mkdocs-material/getting-started/)を参照。
+
+
+
+# 実行環境
+
+## ローカル実行：Dockerを用いた実行環境
+
+本コードを動かせるDocker環境は`squidfunk/mkdocs-material`のImageを参照して作成。
 
 ```
-$ git submodule init
-$ git submodule update
+docker pull ossyaritoori/mkdocs-material
 ```
 
-Now you are ready to add content and customize looks. Do not change any file inside theme directory.
-
-If you want to freeze changes to DocDock theme itself and use still submodules, fork private copy of DocDock and use that as submodule. When you are ready to update theme, just pull changes from origin to your private fork.
-
-### 2. Install DocDock simply as git clone
-This method results that files are checked out locally, but won't be visible from parent git repo. Probably you will build site locally with `hugo` command and use result from `public/` on your own.
+buildを確認するには下記のコマンドを打つべし。
 
 ```
-$ git clone https://github.com/vjeantet/hugo-theme-docdock.git themes/docdock
+docker run --rm -v `pwd`:/docs ossyaritoori/mkdocs-material build
 ```
 
 
-### 3. Install DocDock from ZIP
+## 追加した拡張機能環境
 
-All files from theme will be tracked inside parent repo, to update it, have to override files in theme. Download following zip and extract inside `themes/`.
+`squidfunk/mkdocs-material`からの環境の変分は下記の通り。自前の環境で実行したい場合は各pipコマンドを叩けばOK。
 
-```
-https://github.com/vjeantet/hugo-theme-docdock/archive/master.zip
-```
-Name of theme in next step will be `hugo-theme-docdock-master`, can rename as you wish.
+- MathJaxを追加
+  - 没：https://squidfunk.github.io/mkdocs-material/reference/mathjax/
+  - 採用：https://qiita.com/mebiusbox2/items/a61d42878266af969e3c
+      - `pip install python-markdown-math`
+- Plantumlを追加
+  - `pip install plantuml-markdown`
+- truly sane indent：
+  - https://stakiran.hatenablog.com/entry/2018/08/02/202816
+  - `pip install mdx_truly_sane_lists`
+- index numbering：章と節にナンバリング
+  - https://github.com/ignorantshr/mkdocs-add-number-plugin
+  - `pip3 install mkdocs-add-number-plugin`
+- git revision：変更履歴表示
+  - https://roy-n-roy.github.io/mkdocs/gitRevisionDate/
+  - `pip install mkdocs-git-revision-date-localized-plugin`
 
-## Configure
 
-Import sample config from sample site to Hugo root.
+## Remote実行：GitHub Actions
 
-```
-$ cp themes/docdock/exampleSite/config.toml .
-```
+[ここの記述](https://squidfunk.github.io/mkdocs-material/publishing-your-site/)を参考にワークフローを定義。
 
-Change following `config.toml` line as needed, depending on method above:
-```
-theme = "<hugo-theme-docdock-dir-name>"
-```
-Comment out following line, so default `themes/` will be used:
 
-```
-# themesdir = "../.."
-```
 
-#### (Bonus)
-Create empty file `.gitkeep` inside `public/` and add following to `.gitignore`.  This way it will keep repo smaller and won't bring build result files and errors to remote checkout places:
-```
-/public/*
-!/public/.gitkeep
-```
+# メモスペース
 
-### Preview site
-```
-$ hugo server
-```
-to browse site on http://localhost:1313
-
-## Usage
-
-- [Visit the documentation](http://docdock.netlify.com/)
-- [Hugo docs](https://gohugo.io/getting-started/configuration/)
-- [Git submodules](https://git-scm.com/docs/git-submodule)
+- サイトに含めたいファイルは全てdocs以下に置く（build時，docsフォルダ以下がまるまるsite以下にコピーされる仕様なので）
+- その他参照にしたサイト： https://taxintt.hatenablog.com/entry/2020/06/07/225215

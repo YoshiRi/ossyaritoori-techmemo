@@ -1,0 +1,60 @@
+# サイト名
+site_name: My Docs
+
+# materialのテーマを使用
+theme:
+  name: material
+  language: ja
+  features:
+    - navigation.tabs # navigationをタブでも表示
+    - navigation.tabs.sticky # タブの固定（今はInsiderのみ）
+    #- toc.integrate # TOCを左にIntegrate，Numberingと噛み合わないので無効化
+  palette:
+    primary: indigo
+    accent: indigo
+
+# 拡張設定
+markdown_extensions:
+  - codehilite
+  - footnotes
+  - meta
+  - admonition
+  - pymdownx.arithmatex: # Mathjaxの数式有効化
+      generic: true 
+  - plantuml_markdown: # platnumlを書ける
+      server: http://www.plantuml.com/plantuml
+      format: svg
+  - mdx_truly_sane_lists: #list indentation  
+      nested_indent: 2 
+# mathjax Settings
+extra_javascript: 
+  #- http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+  - javascripts/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+extra:
+  search:
+    language: 'ja'
+plugins:
+  - search # デフォルトだが一応明示的に
+  - add-number: # 章に番号を振る
+      increment_topnav: True # 章
+      increment_pages: True # 節（各ページにも振る）
+      strict_mode: False
+  - git-revision-date-localized   # 更新時を表示可能
+
+use_directory_urls: false # directly connect htmls
+
+
+# ファイル構成
+## docs 以下ならどこでもOK？要調査
+nav:
+  - Home:
+    - Top: _index.md
+  - 勉強（制御）:
+    - 不安定ゼロと制御: 不安定ゼロと共振を持つ系の制御.md
+    - Lie代数: 回転の最適化とLie群.md
+    - 機械学習: 機械学習図鑑.md
+    - SVM: サポートベクター回帰.md
+  - （ロボティクス）:
+    - センシングの不確かさ: センシングの不確かさと制御について.md
