@@ -31,6 +31,8 @@ Rhat = reshape(Rcoef,2,2)'
 theta_hat = atan(Rhat(2)/Rhat(1))
 theta_hat2 = atan(-Rhat(3)/Rhat(1))
 Rhat2 = expm(theta_hat*G)
+Rhat2_ = toRotation(Rhat)
+
 %% 2. Lie group
 % init estimation
 iteration = 10;
@@ -87,17 +89,19 @@ Rcoef3d=Coef3d\Ys3d;
 
 Rhat3d = reshape(Rcoef3d,3,3)'
 
-% theta_hat = atan(Rhat(2)/Rhat(1))
-% Rhat2 = expm(theta_hat*G)
+Rhat3d_ = toRotation(Rhat3d)
 
 
-%% 2. Lie group
+
+
+%% 2. Lie group Newton
+
 % init estimation
 iteration = 10;
-lambdalm=0.1;
+lambdalm=0.0001;
 alpha3d = zeros(iteration,3);
 % init value
-alpha3d(1,:) = [0.1 0.1 0.1];
+alpha3d(1,:) = [0.1 0.21 0.31];
 
 for i = 2:iteration
 % jacobian
@@ -114,3 +118,47 @@ alpha3d(i,:) = alpha3d(i-1,:)+da';
 end
 
 theta_liehat3d = alpha3d(end,:)
+
+%% 2. Lie group: Gauss-Newton(LM)
+
+% init estimation
+iteration = 10;
+lambdalm=0.0;
+alpha3d = zeros(iteration,3);
+% init value
+alpha3d(1,:) = [0.2 0.3 0.1];
+
+lieA = @(v) v(1)*G1+v(2)*G2+v(3)*G3;
+Rinit = expm(lieA(alpha3d(1,:)));
+
+% init
+Rgn = Rinit;
+for i = 2:iteration
+
+H = zeros(3,3);
+g = zeros(3,1);
+for j = 1:datanum
+    Wa = eye(3);
+    g1 = - cross(Rgn*x3d(:,j), Wa*(y3d(:,j)-Rgn*x3d(:,j)));
+    g2 = - cross(Wa*(y3d(:,j)-Rgn*x3d(:,j)),Rgn*Rgn'*Wa*(y3d(:,j)-Rgn*x3d(:,j)));
+    g = g + g1 + g2;
+    hh = lieA(Rgn*x3d(:,j))*Wa*lieA(Rgn*x3d(:,j))';
+    H = H + hh;
+end
+dw = -inv(H+lambdalm*eye(3))*g;
+alpha3d(i,:) = alpha3d(i-1,:)+dw';
+Rgn = expm(lieA(dw))*Rgn;
+end
+
+theta_liehat3d = alpha3d(end,:)
+
+
+%% function
+
+% Rを回転行列に丸める
+function Rn = toRotation(R_)
+    [U S V] = svd(R_);
+    Sig = eye(size(R_,1));
+    Sig(end) = det(U*V);
+    Rn = U * Sig * V'
+end
